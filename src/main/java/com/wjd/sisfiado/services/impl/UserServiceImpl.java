@@ -43,4 +43,11 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.save(userMapper.userInputDtoForUserEntity(userInputDto));
         return userMapper.userEntityForUserOutputDto(user);
     }
+
+    @Override
+    public void updateAvatar(String avatarUrl, Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundExceptionApp("User not found!"));
+        user.setAvatarUrl(avatarUrl);
+        userRepository.save(user);
+    }
 }

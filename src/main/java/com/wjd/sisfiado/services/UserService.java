@@ -3,6 +3,9 @@ package com.wjd.sisfiado.services;
 import com.wjd.sisfiado.dto.UserInputDto;
 import com.wjd.sisfiado.dto.UserOutputDto;
 
+/**
+ * The interface User service.
+ */
 public interface UserService {
     /**
      * Save user output dto.
@@ -27,4 +30,11 @@ public interface UserService {
      * @return the user output dto
      */
     UserOutputDto update(final UserInputDto userInputDto);
+
+    /**
+     * Update avatar.
+     *
+     * @param avatarUrl the avatar url
+     */
+    void updateAvatar(final String avatarUrl, final Long id);
 }

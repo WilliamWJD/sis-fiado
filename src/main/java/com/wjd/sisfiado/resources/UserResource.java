@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -36,5 +37,11 @@ public class UserResource {
     public ResponseEntity<UserOutputDto> update(@PathVariable final Long id, @RequestBody @Valid final UserInputDto userInputDto) {
         userInputDto.setId(id);
         return ResponseEntity.ok(userService.save(userInputDto));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable(value = "id") final Long id, @RequestBody Map<String, String> avatarUrl) {
+        userService.updateAvatar(avatarUrl.get("avatarUrl"), id);
+        return ResponseEntity.noContent().build();
     }
 }
