@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
 
     public User userInputDtoForUserEntity(final UserInputDto userInputDto) {
-        return new User(null, userInputDto.getName(), userInputDto.getEmail(), userInputDto.getPassword(), userInputDto.getPassword());
+        return new User(null, userInputDto.getName(), userInputDto.getEmail(), userInputDto.getPassword(), userInputDto.getAvatarUrl());
     }
 
     public UserOutputDto userEntityForUserOutputDto(final User user){

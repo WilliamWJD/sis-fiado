@@ -1,6 +1,7 @@
 package com.wjd.sisfiado.resources.exceptions;
 
 import com.wjd.sisfiado.services.exceptions.DataIntegrityException;
+import com.wjd.sisfiado.services.exceptions.ResourceNotFoundExceptionApp;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,17 @@ public class ResourceExceptionHandler {
         err.setPath(request.getRequestURI());
         err.setMessage(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(ResourceNotFoundExceptionApp.class)
+    public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundExceptionApp e, HttpServletRequest request){
+        StandardError err = new StandardError();
+        err.setTimestamp(Instant.now());
+        err.setError("Entity not found");
+        err.setStatus(HttpStatus.NOT_FOUND.value());
+        err.setPath(request.getRequestURI());
+        err.setMessage(e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

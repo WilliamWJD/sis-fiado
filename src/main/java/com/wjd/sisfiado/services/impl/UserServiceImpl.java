@@ -7,6 +7,7 @@ import com.wjd.sisfiado.mappers.UserMapper;
 import com.wjd.sisfiado.repositories.UserRepository;
 import com.wjd.sisfiado.services.UserService;
 import com.wjd.sisfiado.services.exceptions.DataIntegrityException;
+import com.wjd.sisfiado.services.exceptions.ResourceNotFoundExceptionApp;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,11 @@ public class UserServiceImpl implements UserService {
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Data integrity error");
         }
+    }
+
+    @Override
+    public UserOutputDto findById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundExceptionApp("User not found!"));
+        return userMapper.userEntityForUserOutputDto(user);
     }
 }
