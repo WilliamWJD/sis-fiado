@@ -34,7 +34,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserOutputDto findById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundExceptionApp("User not found!"));
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundExceptionApp("User not found!"));
+        return userMapper.userEntityForUserOutputDto(user);
+    }
+
+    @Override
+    public UserOutputDto update(UserInputDto userInputDto) {
+        User user = userRepository.save(userMapper.userInputDtoForUserEntity(userInputDto));
         return userMapper.userEntityForUserOutputDto(user);
     }
 }

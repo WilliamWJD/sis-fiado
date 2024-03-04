@@ -17,18 +17,24 @@ public class UserResource {
 
     private final UserService userService;
 
-    public UserResource(final UserServiceImpl userServiceImpl){
+    public UserResource(final UserServiceImpl userServiceImpl) {
         this.userService = userServiceImpl;
     }
 
     @PostMapping
-    public ResponseEntity<UserOutputDto> save(@RequestBody @Valid final UserInputDto userInputDto){
+    public ResponseEntity<UserOutputDto> save(@RequestBody @Valid final UserInputDto userInputDto) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userInputDto.getId()).toUri();
         return ResponseEntity.created(uri).body(userService.save(userInputDto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserOutputDto> findById(@PathVariable final Long id){
+    public ResponseEntity<UserOutputDto> findById(@PathVariable final Long id) {
         return ResponseEntity.ok(userService.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserOutputDto> update(@PathVariable final Long id, @RequestBody @Valid final UserInputDto userInputDto) {
+        userInputDto.setId(id);
+        return ResponseEntity.ok(userService.save(userInputDto));
     }
 }

@@ -19,4 +19,12 @@ public interface UserService {
      * @return the user output dto
      */
     UserOutputDto findById(final Long id);
+
+    /**
+     * Update user output dto.
+     *
+     * @param userInputDto the user input dto
+     * @return the user output dto
+     */
+    UserOutputDto update(final UserInputDto userInputDto);
 }
